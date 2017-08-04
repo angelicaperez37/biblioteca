@@ -17,8 +17,11 @@ public class LibraryTest {
     }
     
     @Test
-    public void test
-            () {
+    public void shouldPrintListOfBooks() {
+        PrintStream printStream = mock(PrintStream.class);
+        Library library = new Library(printStream);
+        library.printListOfBooks();
+        verify(printStream).println("Harry Potter, Black Swan, The Bible");
         
     }
 
