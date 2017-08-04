@@ -22,7 +22,7 @@ public class Book {
     }
 
     @Override
-    public String toString(){
+        public String toString(){
         return title + "\t" + author + "\t" + yearPublished;
     }
-}
+    }
