@@ -21,7 +21,7 @@ public class Library {
                 books += book.toString();
             }
             else
-                books+= book.toString() + ", ";
+                books+= book.toString() + "\n";
         }
 
         printStream.println(books);

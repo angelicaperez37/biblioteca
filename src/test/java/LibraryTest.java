@@ -28,8 +28,28 @@ public class LibraryTest {
         Library library = new Library(printStream, listOfBooks);
 
         library.printListOfBooks();
-        verify(printStream).println("Harry Potter, Black Swan, The Bible");
+        verify(printStream).println("Harry Potter\t\t\nBlack Swan\t\t\nThe Bible\t\t");
         
     }
 
+    @Test
+    public void shouldContainsAuthorNameWhenPrintingList() {
+        PrintStream printStream = mock(PrintStream.class);
+        ArrayList<Book> listOfBooks = new ArrayList();
+        listOfBooks.add(new Book("Harry Potter", "J.K. Rowling"));
+        Library library = new Library(printStream, listOfBooks);
+        library.printListOfBooks();
+        verify(printStream).println("Harry Potter\tJ.K. Rowling\t");
+    }
+
+
+    @Test
+    public void shouldContainAuthorAndPublishYearWhenPrintingList() {
+        PrintStream printStream = mock(PrintStream.class);
+        ArrayList<Book> listOfBooks = new ArrayList();
+        listOfBooks.add(new Book("Harry Potter", "J.K. Rowling", "2000"));
+        Library library = new Library(printStream, listOfBooks);
+        library.printListOfBooks();
+        verify(printStream).println("Harry Potter\tJ.K. Rowling\t2000");
+    }
 }
