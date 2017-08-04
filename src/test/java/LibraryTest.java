@@ -50,4 +50,14 @@ public class LibraryTest {
         library.printListOfBooks();
         verify(printStream).println("Harry Potter\tJ.K. Rowling\t2000");
     }
+
+    @Test
+    public void shouldPrintListOfMultipleBooksWithDetails() throws Exception {
+        listOfBooks.add(new Book("Harry Potter", "J.K. Rowling", "2000"));
+        listOfBooks.add(new Book("Black Swan", "Joe Schmoe", "1999"));
+
+        library.printListOfBooks();
+
+        verify(printStream).println("Harry Potter\tJ.K. Rowling\t2000\nBlack Swan\tJoe Schmoe\t1999");
+    }
 }

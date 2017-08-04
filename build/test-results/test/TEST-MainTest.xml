@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="MainTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2017-08-04T20:13:54" hostname="aperezMac.local" time="0.018">
+  <properties/>
+  <testcase name="shouldPrintMessagesWhenMainRuns" classname="MainTest" time="0.018"/>
+  <system-out><![CDATA[Welcome to Biblioteca
+Harry Potter	J.K. Rowling	2000
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
