@@ -1,14 +1,17 @@
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Library {
 
     private final PrintStream printStream;
+    private Scanner scanner;
     private ArrayList<Book> listOfBooks;
 
-    public Library(PrintStream printstream, ArrayList<Book> listOfBooks){
+    public Library(PrintStream printstream, ArrayList<Book> listOfBooks, Scanner scanner){
         this.printStream = printstream;
         this.listOfBooks = listOfBooks;
+        this.scanner = scanner;
     }
     public void start() {
         printStream.println("Welcome to Biblioteca");
@@ -25,5 +28,19 @@ public class Library {
         }
 
         printStream.println(books);
+    }
+
+    public void printMenuOptions() {
+        printStream.println("Pick an option:\n1) List books");
+    }
+
+    public void selectMenuOption(String s) {
+        if (s == "1") {
+            printListOfBooks();
+        }
+    }
+
+    public void getUserInput() {
+        selectMenuOption(scanner.nextLine());
     }
 }

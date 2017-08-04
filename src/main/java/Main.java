@@ -1,5 +1,6 @@
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
     private static PrintStream printStream;
@@ -10,7 +11,7 @@ public class Main {
         printStream = new PrintStream(System.out);
         listOfBooks = new ArrayList();
         listOfBooks.add(new Book("Harry Potter", "J.K. Rowling", "2000"));
-        library = new Library(printStream, listOfBooks);
+        library = new Library(printStream, listOfBooks, new Scanner(System.in));
         library.start();
         library.printListOfBooks();
     }
