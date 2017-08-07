@@ -30,12 +30,13 @@ public class Library {
         printStream.println(books);
     }
 
-    public void printMenuOptions() {
+    public void chooseFromMenuOptions() {
         printStream.println("Pick an option:\n1) List books");
+        getUserInput();
     }
 
-    public void selectMenuOption(String s) {
-        if (s.equals("1")) {
+    public void selectMenuOption(String input) {
+        if (input.equals("1")) {
             printListOfBooks();
         }
     }

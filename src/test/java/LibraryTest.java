@@ -1,18 +1,16 @@
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.mockito.InOrder;
 
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static org.junit.Assert.*;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 public class LibraryTest {
 
@@ -20,8 +18,6 @@ public class LibraryTest {
     private Library library;
     ArrayList<Book> listOfBooks;
     Scanner scanner;
-
-    Library library2;
 
 
     @Before
@@ -35,7 +31,19 @@ public class LibraryTest {
     private void setupInput (String desiredInput) {
         System.setIn(new ByteArrayInputStream(desiredInput.getBytes()));
         Scanner scanner = new Scanner(System.in);
-        library2 = new Library(printStream, listOfBooks, scanner);
+        library = new Library(printStream, listOfBooks, scanner);
+    }
+
+    @Test
+    @Ignore
+    public void shouldPrintMessagesWhenMainRuns() {
+        library.start();
+        library.chooseFromMenuOptions();
+
+        InOrder mainOrder = inOrder(library);
+
+        mainOrder.verify(library).start();
+        mainOrder.verify(library).chooseFromMenuOptions();
     }
 
     @Test
@@ -46,18 +54,18 @@ public class LibraryTest {
     
     @Test
     public void shouldPrintListOfBooks() {
-        listOfBooks.add(new Book("Harry Potter"));
-        listOfBooks.add(new Book("Black Swan"));
-        listOfBooks.add(new Book("The Bible"));
+        listOfBooks.add(new Book("Harry Potter", null, null));
+        listOfBooks.add(new Book("Black Swan", null, null));
+        listOfBooks.add(new Book("The Bible", null, null));
         library.printListOfBooks();
-        verify(printStream).println("Harry Potter\t\t\nBlack Swan\t\t\nThe Bible\t\t");
+        verify(printStream).println("Harry Potter\tnull\tnull\nBlack Swan\tnull\tnull\nThe Bible\tnull\tnull");
     }
 
     @Test
     public void shouldContainsAuthorNameWhenPrintingList() {
-        listOfBooks.add(new Book("Harry Potter", "J.K. Rowling"));
+        listOfBooks.add(new Book("Harry Potter", "J.K. Rowling", null));
         library.printListOfBooks();
-        verify(printStream).println("Harry Potter\tJ.K. Rowling\t");
+        verify(printStream).println("Harry Potter\tJ.K. Rowling\tnull");
     }
 
     @Test
@@ -78,14 +86,16 @@ public class LibraryTest {
 
     @Test
     public void shouldPrintMenuOptionsWhenApplicationStarts() throws Exception {
-        library.printMenuOptions();
+        setupInput("1");
+        library.chooseFromMenuOptions();
         verify(printStream).println("Pick an option:\n1) List books");
     }
 
     @Test
     public void shouldPrintBookListWhenThatOptionIsSelected() throws Exception {
+        setupInput("1");
         listOfBooks.add(new Book("Harry Potter", "J.K. Rowling", "2000"));
-        library.selectMenuOption("1");
+        library.chooseFromMenuOptions();
         verify(printStream).println("Harry Potter\tJ.K. Rowling\t2000");
     }
 
@@ -93,7 +103,7 @@ public class LibraryTest {
     public void shouldSelectOptionAccordingToUserInput() throws Exception {
         setupInput("1");
         listOfBooks.add(new Book("Harry Potter", "J.K. Rowling", "2000"));
-        library2.getUserInput();
+        library.getUserInput();
         verify(printStream).println("Harry Potter\tJ.K. Rowling\t2000");
     }
 }

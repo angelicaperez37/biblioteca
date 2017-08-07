@@ -13,6 +13,6 @@ public class Main {
         listOfBooks.add(new Book("Harry Potter", "J.K. Rowling", "2000"));
         library = new Library(printStream, listOfBooks, new Scanner(System.in));
         library.start();
-        library.printListOfBooks();
+        library.chooseFromMenuOptions();
     }
 }

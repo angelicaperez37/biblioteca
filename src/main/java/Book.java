@@ -3,17 +3,7 @@ public class Book {
     private String author;
     private String title;
 
-    public Book(String title){
-        this.title = title;
-        author = "";
-        yearPublished = "";
-    }
 
-    public Book(String title, String author){
-        this.title = title;
-        this.author = author;
-        yearPublished = "";
-    }
 
     public Book(String title, String author, String yearPublished){
         this.title = title;
