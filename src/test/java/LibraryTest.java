@@ -2,6 +2,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
@@ -20,14 +21,21 @@ public class LibraryTest {
     ArrayList<Book> listOfBooks;
     Scanner scanner;
 
+    Library library2;
+
 
     @Before
     public void setUp(){
         printStream = mock(PrintStream.class);
-//        scanner = mock(Scanner.class);
-        scanner = new Scanner(System.in);//Bad!!! only temporary because we can't mock Scanner (yet?)
+        scanner = new Scanner(System.in);
         listOfBooks = new ArrayList();
         library = new Library(printStream, listOfBooks, scanner);
+    }
+
+    private void setupInput (String desiredInput) {
+        System.setIn(new ByteArrayInputStream(desiredInput.getBytes()));
+        Scanner scanner = new Scanner(System.in);
+        library2 = new Library(printStream, listOfBooks, scanner);
     }
 
     @Test
@@ -51,7 +59,6 @@ public class LibraryTest {
         library.printListOfBooks();
         verify(printStream).println("Harry Potter\tJ.K. Rowling\t");
     }
-
 
     @Test
     public void shouldContainAuthorAndPublishYearWhenPrintingList() {
@@ -83,11 +90,10 @@ public class LibraryTest {
     }
 
     @Test
-    @Ignore
     public void shouldSelectOptionAccordingToUserInput() throws Exception {
-        when(scanner.nextLine()).thenReturn("1");
+        setupInput("1");
         listOfBooks.add(new Book("Harry Potter", "J.K. Rowling", "2000"));
-        library.getUserInput();
+        library2.getUserInput();
         verify(printStream).println("Harry Potter\tJ.K. Rowling\t2000");
     }
 }

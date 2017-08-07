@@ -35,7 +35,7 @@ public class Library {
     }
 
     public void selectMenuOption(String s) {
-        if (s == "1") {
+        if (s.equals("1")) {
             printListOfBooks();
         }
     }
